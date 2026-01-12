@@ -7,7 +7,6 @@
 
 <link rel="icon" type="image/png" sizes="32x32" href="icon.png" />
 
-
 <meta name="description" content="Invitación al cumpleaños de Thiago Adael Farinango Callan. ¡No faltes a la celebración!" />
 <meta property="og:title" content="Cumpleaños de Thiago" />
 <meta property="og:description" content="Ven a celebrar con nosotros el cumpleaños de Thiago el 17/01/2026." />
@@ -22,7 +21,7 @@
     background: url('fondo.png') no-repeat center center / cover;
   }
 
-
+  /* --- Pantalla de introducción --- */
   #intro {
     position: fixed;
     inset: 0;
@@ -94,6 +93,7 @@
     from { filter: brightness(1); }
     to { filter: brightness(1.2); }
   }
+
   .contenedor-invitacion {
     position: relative;
     z-index: 1;
@@ -104,7 +104,9 @@
     align-items: center;
     gap: 40px;
     padding: 20px;
+    flex-wrap: wrap;
   }
+
   .card {
     background: linear-gradient(135deg, #ffe6f0, #fff0f7);
     border-radius: 30px;
@@ -119,6 +121,7 @@
     from { transform: scale(0.8) rotateX(90deg); opacity: 0; }
     to { transform: scale(1) rotateX(0); opacity: 1; }
   }
+
   .card h1 {
     font-size: 32px;
     color: #ff2d75;
@@ -130,12 +133,14 @@
     0%,100% { text-shadow: 0 0 10px #ffb3d1; }
     50% { text-shadow: 0 0 25px #ff2d75; }
   }
+
   .card p { font-size: 18px; margin: 8px 0; }
 
   .gif-tenor {
-    width: 380px;
-    max-width: 90vw;
-    border-radius: 30px;
+    width: 90vw;
+    max-width: 380px;
+    height: auto;
+    border-radius: 20px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.3);
     animation: flotar 3.5s ease-in-out infinite;
     overflow: hidden;
@@ -175,15 +180,24 @@
     transform: scale(1.05);
   }
 
+  /* --- Responsive --- */
   @media (max-width: 768px) {
-    .contenedor-invitacion { flex-direction: column; gap: 30px; padding: 15px; }
-    .card, .gif-tenor { width: 90vw; max-width: none; border-radius: 25px; }
-    #intro h1 { font-size: 36px; }
-    #intro p { font-size: 18px; }
+    .contenedor-invitacion { flex-direction: column; gap: 20px; padding: 15px; }
+    .card, .gif-tenor { width: 90vw; max-width: 90vw; border-radius: 20px; }
+    #intro h1 { font-size: 32px; }
+    #intro p { font-size: 16px; }
+    .card h1 { font-size: 24px; }
+    .card p { font-size: 16px; }
   }
 </style>
 </head>
 <body>
+
+<!-- Música de fondo -->
+<audio id="musicaFondo" src="musica.mp3" loop autoplay></audio>
+<button id="btnMusica" style="position: fixed; top: 10px; right: 10px; z-index: 2000; padding:10px 15px; border:none; border-radius:10px; background:#ff2d75; color:white; cursor:pointer;">
+  🔊 Música
+</button>
 
 <!-- Pantalla de introducción -->
 <div id="intro">
@@ -243,6 +257,19 @@
     confeti.style.animationDuration = (Math.random() * 3 + 3) + "s";
     document.body.appendChild(confeti);
   }
+
+  // Música: reproducir / pausar
+  const musica = document.getElementById('musicaFondo');
+  const btnMusica = document.getElementById('btnMusica');
+  btnMusica.addEventListener('click', () => {
+    if (musica.paused) {
+      musica.play();
+      btnMusica.textContent = "🔊 Pausar";
+    } else {
+      musica.pause();
+      btnMusica.textContent = "🔊 Música";
+    }
+  });
 </script>
 
 </body>
